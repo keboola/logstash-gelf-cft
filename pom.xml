@@ -2,30 +2,24 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>org.sonatype.oss</groupId>
-        <artifactId>oss-parent</artifactId>
-        <version>9</version>
-    </parent>
-
-    <groupId>biz.paluch.logging</groupId>
-    <version>1.15.2-SNAPSHOT</version>
-    <artifactId>logstash-gelf</artifactId>
+    <groupId>keboola.cft</groupId>
+    <artifactId>logstash-gelf-cft</artifactId>
+    <version>1.15.3-SNAPSHOT</version>
 
     <name>logstash logging connectors</name>
-    <url>https://github.com/mp911de/logstash-gelf/</url>
+    <url>https://github.com/keboola/logstash-gelf-cft/</url>
     <inceptionYear>2013</inceptionYear>
 
     <scm>
-        <connection>scm:git://github.com/mp911de/logstash-gelf.git</connection>
-        <developerConnection>scm:git:git@github.com:mp911de/logstash-gelf.git</developerConnection>
-        <url>http://github.com/mp911de/logstash-gelf/</url>
+        <connection>scm:git://github.com/keboola/logstash-gelf-cft.git</connection>
+        <developerConnection>scm:git:git@github.com:keboola/logstash-gelf-cft.git</developerConnection>
+        <url>http://github.com/keboola/logstash-gelf-cft/</url>
         <tag>HEAD</tag>
     </scm>
 
     <issueManagement>
         <system>GitHub</system>
-        <url>https://github.com/mp911de/logstash-gelf/issues</url>
+        <url>https://github.com/keboola/logstash-gelf-cft/issues</url>
     </issueManagement>
 
     <licenses>
@@ -37,17 +31,19 @@
     </licenses>
 
     <distributionManagement>
-        <site>
-            <id>site</id>
-            <url>scm:git:git@github.com:mp911de/logging.paluch.biz.git</url>
-        </site>
+        <repository>
+            <id>github</id>
+            <name>GitHub Keboola Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/keboola/logstash-gelf-cft</url>
+        </repository>
     </distributionManagement>
+
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <maven.compiler.target>1.7</maven.compiler.target>
-        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
         <logstash-gelf-release-version>1.15.1</logstash-gelf-release-version>
 
         <github.site.upload.skip>true</github.site.upload.skip>
@@ -186,7 +182,7 @@
                 <artifactId>maven-release-plugin</artifactId>
                 <version>${maven-release-plugin.version}</version>
                 <configuration>
-                    <releaseProfiles>sonatype-oss-release</releaseProfiles>
+                    <releaseProfiles>github</releaseProfiles>
                     <goals>deploy</goals>
                 </configuration>
             </plugin>
@@ -481,290 +477,22 @@
         </dependency>
     </dependencies>
 
-    <reporting>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>${maven-javadoc-plugin.version}</version>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-project-info-reports-plugin</artifactId>
-                <version>${maven-project-info-reports-plugin.version}</version>
-                <reportSets>
-                    <reportSet>
-                        <reports>
-                            <report>index</report>
-                            <report>plugin-management</report>
-                            <report>distribution-management</report>
-                            <report>dependency-info</report>
-                            <report>dependencies</report>
-                            <report>scm</report>
-                            <report>issue-management</report>
-                            <report>ci-management</report>
-                            <report>dependency-management</report>
-                            <report>team</report>
-                            <report>summary</report>
-                        </reports>
-                    </reportSet>
-                </reportSets>
-            </plugin>
-        </plugins>
-    </reporting>
-
     <profiles>
         <profile>
-            <id>sonatype-oss-snapshot</id>
-            <distributionManagement>
-                <snapshotRepository>
-                    <id>sonatype</id>
-                    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-                </snapshotRepository>
-            </distributionManagement>
-        </profile>
-        <profile>
-            <id>sonatype-oss-release</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <configuration>
-                            <skip>true</skip>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-failsafe-plugin</artifactId>
-                        <configuration>
-                            <skip>true</skip>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>coverage</id>
-            <activation>
-                <jdk>[1.7,1.8]</jdk>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.jacoco</groupId>
-                        <artifactId>jacoco-maven-plugin</artifactId>
-                        <version>${maven.jacoco.version}</version>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>prepare-agent</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>report</id>
-                                <phase>test</phase>
-                                <goals>
-                                    <goal>report</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
-        <profile>
-            <id>wildfly</id>
-            <activation>
-                <jdk>1.8</jdk>
-            </activation>
-            <properties>
-                <version.wildfly>12.0.0.Final</version.wildfly>
-                <jboss.home>${project.build.directory}/wildfly-${version.wildfly}</jboss.home>
-            </properties>
-            <build>
-                <testResources>
-                    <testResource>
-                        <directory>src/test/resources</directory>
-                        <filtering>true</filtering>
-                        <includes>
-                            <include>arquillian.xml</include>
-                        </includes>
-                    </testResource>
-                </testResources>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-dependency-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>unpack</id>
-                                <phase>pre-integration-test</phase>
-                                <goals>
-                                    <goal>unpack</goal>
-                                </goals>
-                                <configuration>
-                                    <artifactItems>
-                                        <artifactItem>
-                                            <groupId>org.wildfly</groupId>
-                                            <artifactId>wildfly-dist</artifactId>
-                                            <version>${version.wildfly}</version>
-                                            <type>zip</type>
-                                            <overWrite>false</overWrite>
-                                            <outputDirectory>${project.build.directory}</outputDirectory>
-                                        </artifactItem>
-                                    </artifactItems>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>unpack-module</id>
-                                <phase>pre-integration-test</phase>
-                                <goals>
-                                    <goal>unpack</goal>
-                                </goals>
-                                <configuration>
-                                    <artifactItems>
-                                        <artifactItem>
-                                            <groupId>${project.groupId}</groupId>
-                                            <artifactId>${project.artifactId}</artifactId>
-                                            <version>${project.version}</version>
-                                            <classifier>logging-module</classifier>
-                                            <type>zip</type>
-                                            <overWrite>false</overWrite>
-
-                                            <outputDirectory>${jboss.home}/modules/system/layers</outputDirectory>
-                                        </artifactItem>
-                                    </artifactItems>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <artifactId>maven-failsafe-plugin</artifactId>
-                        <version>${maven-failsafe-plugin.version}</version>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>integration-test</goal>
-                                    <goal>verify</goal>
-                                </goals>
-                                <configuration>
-                                    <redirectTestOutputToFile>true</redirectTestOutputToFile>
-                                    <includes>
-                                        <include>**/*IntegrationTests.java</include>
-                                        <include>**/*IntegrationTest.java</include>
-                                    </includes>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <artifactId>maven-resources-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>modules-conf</id>
-                                <phase>pre-integration-test</phase>
-                                <goals>
-                                    <goal>copy-resources</goal>
-                                </goals>
-                                <configuration>
-                                    <outputDirectory>${jboss.home}/modules</outputDirectory>
-                                    <resources>
-                                        <resource>
-                                            <directory>src/test/resources</directory>
-                                            <filtering>true</filtering>
-                                            <includes>
-                                                <include>layers.conf</include>
-                                            </includes>
-                                        </resource>
-                                    </resources>
-
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
-        <profile>
-            <id>jmh</id>
-
-            <dependencies>
-                <dependency>
-                    <groupId>org.openjdk.jmh</groupId>
-                    <artifactId>jmh-core</artifactId>
-                    <version>1.21</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.openjdk.jmh</groupId>
-                    <artifactId>jmh-generator-annprocess</artifactId>
-                    <version>1.21</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-
-            <build>
-                <resources>
-                    <resource>
-                        <directory>src/test/resources</directory>
-                    </resource>
-                </resources>
-                <plugins>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>build-helper-maven-plugin</artifactId>
-                        <version>3.0.0</version>
-                        <executions>
-                            <execution>
-                                <id>add-source</id>
-                                <goals>
-                                    <goal>add-test-source</goal>
-                                </goals>
-                                <configuration>
-                                    <sources>
-                                        <source>src/perf/java</source>
-                                    </sources>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>exec-maven-plugin</artifactId>
-                        <version>1.6.0</version>
-                        <executions>
-                            <execution>
-                                <id>run-benchmarks</id>
-                                <phase>integration-test</phase>
-                                <goals>
-                                    <goal>exec</goal>
-                                </goals>
-                                <configuration>
-                                    <executable>java</executable>
-                                    <classpathScope>test</classpathScope>
-                                    <arguments>
-                                        <argument>-classpath</argument>
-                                        <classpath />
-                                        <argument>org.openjdk.jmh.Main</argument>
-                                        <argument>-f</argument>
-                                        <argument>1</argument>
-                                        <argument>-wf</argument>
-                                        <argument>0</argument>
-                                        <argument>-i</argument>
-                                        <argument>5</argument>
-                                        <argument>-wi</argument>
-                                        <argument>1</argument>
-                                        <argument>.*</argument>
-                                    </arguments>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
+            <id>github</id>
+            <repositories>
+                <repository>
+                    <id>central</id>
+                    <url>https://repo1.maven.org/maven2</url>
+                </repository>
+                <repository>
+                    <id>github</id>
+                    <url>https://maven.pkg.github.com/keboola/logstash-gelf-cft</url>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                </repository>
+            </repositories>
         </profile>
     </profiles>
 </project>

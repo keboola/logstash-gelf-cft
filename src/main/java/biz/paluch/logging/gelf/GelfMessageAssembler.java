@@ -34,7 +34,7 @@ public class GelfMessageAssembler implements HostAndPortProvider {
     public static final String FIELD_MESSAGE_PARAM = "MessageParam";
     public static final String FIELD_STACK_TRACE = "StackTrace";
 
-    private static final int MAX_SHORT_MESSAGE_LENGTH = 250;
+    private static final int MAX_SHORT_MESSAGE_LENGTH = 65535;
     private static final int MAX_PORT_NUMBER = 65535;
     private static final int MAX_MESSAGE_SIZE = Integer.MAX_VALUE;
     private static final Set<NamedLogField> SOURCE_FIELDS = EnumSet.of(NamedLogField.SourceClassName,
