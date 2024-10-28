@@ -3,8 +3,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>keboola.cft</groupId>
-    <artifactId>logstash-gelf-cft</artifactId>
-    <version>1.15.3-SNAPSHOT</version>
+    <artifactId>logstash-gelf</artifactId>
+    <version>1.15.4-SNAPSHOT</version>
 
     <name>logstash logging connectors</name>
     <url>https://github.com/keboola/logstash-gelf-cft/</url>

@@ -1,6 +1,9 @@
 logstash-gelf
 =========================
               
+### MODIFIED https://github.com/mp911de/logstash-gelf with increased SHORT_MESSAGE size
+
+-----
 
 **This project is now archived, after a decade of maintenance, with 36 releases and several occasional contributors. The project is feature complete, and we see little issue traffic. With me being the sole maintainer, it is about time to turn off the lights here and move on to free up time for other duties. K, thx, good bye.**
 
