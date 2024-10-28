@@ -31,7 +31,7 @@ jobs:
         run: ./mvnw -B package
 
   deploy:
-    if: github.repository == 'mp911de/logstash-gelf'
+    if: github.repository == 'keboola/logstash-gelf-cft'
     runs-on: ubuntu-latest
     needs: [ build ]
     steps:
@@ -49,13 +49,13 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
-      - name: Deploy snapshots to OSS Sonatype
+      - name: Deploy snapshots to Github
         env:
-          SONATYPE_USER: ${{ secrets.SONATYPE_USER }}
-          SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
+          GH_USER: ${{ secrets.GH_USER }}
+          GH_PASS: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          if [ "${SONATYPE_USER}" != "" -a "${SONATYPE_PASSWORD}" != "" ]; then
-            ./mvnw -B clean deploy -Dgpg.skip=true -Dgithub.site.upload.skip=false -P sonatype-oss-snapshot,sonatype-oss-release -s .github/settings.xml
+          if [ "${GH_USER}" != "" -a "${GH_PASS}" != "" ]; then
+            ./mvnw -B clean deploy -s .github/settings.xml
           else
-            echo "Not deploying, secrets SONATYPE_USER and SONATYPE_PASSWORD not provided"
+            echo "Not deploying, secrets GH_USER and GH_PASS not provided"
           fi
