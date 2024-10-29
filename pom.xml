@@ -4,7 +4,7 @@
 
     <groupId>keboola.cft</groupId>
     <artifactId>logstash-gelf</artifactId>
-    <version>1.15.4-SNAPSHOT</version>
+    <version>1.15.5-SNAPSHOT</version>
 
     <name>logstash logging connectors</name>
     <url>https://github.com/keboola/logstash-gelf-cft/</url>
